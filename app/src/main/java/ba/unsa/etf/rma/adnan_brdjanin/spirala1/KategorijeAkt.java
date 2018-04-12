@@ -1,5 +1,8 @@
 package ba.unsa.etf.rma.adnan_brdjanin.spirala1;
 
+import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,89 +11,77 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import static android.app.PendingIntent.getActivity;
 
 
 public class KategorijeAkt extends AppCompatActivity {
-    public static ArrayList<Knjiga> listaKnjiga;
+    public static ArrayList<Knjiga> listaKnjiga = new ArrayList<>();
+    public static ArrayList<String> lista = new ArrayList<String>();
+    public static Boolean siriL = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kategorije_akt);
 
-        listaKnjiga = new ArrayList<Knjiga>();
+        if (savedInstanceState != null) {
+            listaKnjiga = savedInstanceState.getParcelableArrayList("mojaListaPodataka");
+        }
 
-        final Button dugmeDodajKategoriju = (Button)findViewById(R.id.dDodajKategoriju);
-        dugmeDodajKategoriju.setEnabled(false);
 
-        final EditText tekstPretraga = (EditText)findViewById(R.id.tekstPretraga);
-        final Button dugmePretraga = (Button)findViewById(R.id.dPretraga);
-        final ListView listaKategorija = (ListView)findViewById(R.id.listaKategorija);
-        final Button dugmeDodajKnjigu = (Button)findViewById(R.id.dDodajKnjigu);
+        FragmentManager fm = getSupportFragmentManager();
+        FrameLayout ldetalji = (FrameLayout)findViewById(R.id.mjestoF3);
 
-        final ArrayList<String> lista = new ArrayList<String>();
-        final ArrayAdapter<String> adapter;
+        siriL = false;
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
-        listaKategorija.setAdapter(adapter);
-
-        dugmePretraga.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.getFilter().filter(tekstPretraga.getText().toString());
-
-                if (adapter.getCount() == 0) {
-                    dugmeDodajKategoriju.setEnabled(true);
-                }
-
+        if (ldetalji != null) {
+            siriL = true;
+            ListeFragment fd = (ListeFragment)fm.findFragmentById(R.id.mjestoF1);
+            KnjigeFragment kf = (KnjigeFragment) fm.findFragmentById(R.id.mjestoF3);
+            if (fd == null) {
+                fd = new ListeFragment();
+                Bundle argumenti = new Bundle();
+                argumenti.putParcelableArrayList("mojaListaPodataka", listaKnjiga);
+                fd.setArguments(argumenti);
+                fm.beginTransaction().replace(R.id.mjestoF1, fd).commit();
             }
-        });
+            if (kf == null) {
+                kf = new KnjigeFragment();
 
-        dugmeDodajKategoriju.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String uneseniTekst = tekstPretraga.getText().toString();
-
-                if (uneseniTekst != null && !uneseniTekst.isEmpty()) {
-                    lista.add(0, uneseniTekst);
-                    adapter.add(uneseniTekst);
-                    adapter.notifyDataSetChanged();
-                }
-                Collections.sort(lista, new Comparator<String>() {
-                    @Override
-                    public int compare(String s1, String s2) {
-                        return s1.compareToIgnoreCase(s2);
-                    }
-                });
-                tekstPretraga.setText("");
-                dugmeDodajKategoriju.setEnabled(false);
+                Bundle argumenti = new Bundle();
+                argumenti.putParcelableArrayList("mojaListaPodataka", listaKnjiga);
+                kf.setArguments(argumenti);
+                fm.beginTransaction().replace(R.id.mjestoF3, kf).commit();
             }
-        });
-
-        dugmeDodajKnjigu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), DodavanjeKnjigeAkt.class);
-                i.putExtra("lista", lista);
-                startActivity(i);
+        } else {
+            ListeFragment fd = (ListeFragment)fm.findFragmentById(R.id.mjestoF1);
+            if (fd == null) {
+                fd = new ListeFragment();
+                fm.beginTransaction().replace(R.id.mjestoF1, fd).commit();
             }
-        });
-
-
-        listaKategorija.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), ListaKnjigaAkt.class);
-                i.putExtra("kategorija", listaKategorija.getItemAtPosition(position).toString());
-                startActivity(i);
-            }
-        });
+        }
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putParcelableArrayList("mojaListaPodataka", listaKnjiga);
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+
+        super.onRestoreInstanceState(savedInstanceState);
+
+        listaKnjiga = savedInstanceState.getParcelableArrayList("mojaListaPodataka");
+    }
 }

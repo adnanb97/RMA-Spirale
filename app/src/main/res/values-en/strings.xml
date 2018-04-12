@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Kategorije">Categories</string>
+    <string name="Autori">Authors</string>
+    <string name="Pretraga">Search</string>
+    <string name="Dodaj_Kategoriju">Add a category</string>
+    <string name="Dodaj_Knjigu">Add a book</string>
+    <string name="Povratak">Back</string>
+    <string name="Ime_Pisca">Author name</string>
+    <string name="Naziv_Knjige">Book title</string>
+    <string name="Nadji_Sliku">Browse picture</string>
+    <string name="Ponisti">Cancel</string>
+    <string name="Toast_poruka_dodavanje_knjige">Book successfully added!</string>
+
+</resources>

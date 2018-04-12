@@ -7,26 +7,10 @@
     android:orientation="vertical"
     tools:context="ba.unsa.etf.rma.adnan_brdjanin.spirala1.ListaKnjigaAkt">
 
-    <Button
-        android:id="@+id/dPovratak"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="470dp"
-        android:layout_centerHorizontal="true"
-        android:text="Povratak">
-
-    </Button>
-
-    <ListView
-        android:id="@+id/listaKnjiga"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="460dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_weight="1">
-
-    </ListView>
+        android:layout_height="match_parent"
+        android:id="@+id/mjestoF3"
+        />
 
 </RelativeLayout>
