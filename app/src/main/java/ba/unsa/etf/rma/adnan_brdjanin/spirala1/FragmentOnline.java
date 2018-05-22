@@ -109,6 +109,7 @@ public class FragmentOnline extends Fragment implements DohvatiKnjige.IDohvatiKn
                     if (!KategorijeAkt.listaKnjiga.contains(x))
                         KategorijeAkt.listaKnjiga.add(x);
 
+                    if (x.autori != null)
                     for (int i = 0; i < x.autori.size(); i++) {
                         int indeks = -1;
                         for (int j = 0; j < KategorijeAkt.listaAutora.size(); j++)
@@ -172,6 +173,7 @@ public class FragmentOnline extends Fragment implements DohvatiKnjige.IDohvatiKn
                 break;
             case 1:
                 ArrayList<Knjiga> listaKnjiga = resultData.getParcelableArrayList("listaKnjiga");
+                rez = listaKnjiga;
                 nazivi.clear();
                 for (int i = 0; i < rez.size(); i++)
                     nazivi.add(rez.get(i).getNaziv());

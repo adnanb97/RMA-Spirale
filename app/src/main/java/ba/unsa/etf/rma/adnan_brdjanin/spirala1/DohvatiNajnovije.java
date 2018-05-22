@@ -39,22 +39,35 @@ public class DohvatiNajnovije extends AsyncTask<String, Integer, Void> {
             JSONArray items = jo.getJSONArray("items");
             for (int i = 0; i < items.length(); i++) {
                 JSONObject knjiga = items.getJSONObject(i);
-                String nazivDjela = knjiga.getJSONObject("volumeInfo").getString("title");
+                String nazivDjela = knjiga.getJSONObject("volumeInfo").optString("title");
                 String idDjela = knjiga.getString("id");
-                JSONArray jsonPisac = knjiga.getJSONObject("volumeInfo").getJSONArray("authors");
+                JSONArray jsonPisac = knjiga.getJSONObject("volumeInfo").optJSONArray("authors");
                 ArrayList<Autor> autori = new ArrayList<Autor>();
+                if (jsonPisac != null)
                 for (int j = 0; j < jsonPisac.length(); j++) {
                     String imePisca = jsonPisac.getString(j);
                     Autor tempAutor = new Autor(imePisca, idDjela);
                     autori.add(tempAutor);
                 }
-                String opis = knjiga.getJSONObject("volumeInfo").getString("description");
-                String datumObjave = knjiga.getJSONObject("volumeInfo").getString("publishedDate");
-                String slika = knjiga.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
-                URL urlSlika = new URL(slika);
-                String stranice = knjiga.getJSONObject("volumeInfo").getString("pageCount");
-                int brojStrinica = Integer.parseInt(stranice);
+                String opis = knjiga.getJSONObject("volumeInfo").optString("description");
+                String datumObjave = knjiga.getJSONObject("volumeInfo").optString("publishedDate");
+                JSONObject imageLinks = knjiga.getJSONObject("volumeInfo").optJSONObject("imageLinks");
+                String slika = null;
+                if (imageLinks != null)
+                    slika = imageLinks.optString("thumbnail");
 
+                String stranice = knjiga.getJSONObject("volumeInfo").optString("pageCount");
+                int brojStrinica = 0;
+                if (!stranice.equals("")) brojStrinica = Integer.parseInt(stranice);
+
+                if (nazivDjela == null) nazivDjela = "";
+                if (idDjela == null) idDjela = "";
+                if (opis == null) opis = "";
+                if (datumObjave == null) datumObjave = "";
+                if (slika == null) slika = "http://books.google.com/books/content?id=mWggzqOEzAsC&printsec=frontcover&img=1&zoom=1&source=gbs_ap";
+
+
+                URL urlSlika = new URL(slika);
                 Knjiga uzeta = new Knjiga(idDjela, nazivDjela, autori, opis, datumObjave, urlSlika, brojStrinica);
                 uzete.add(uzeta);
             }
