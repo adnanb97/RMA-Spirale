@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +53,7 @@ public class ListeFragment extends Fragment {
         final Button dugmeDodajKnjigu = (Button)getView().findViewById(R.id.dDodajKnjigu);
         final Button dugmeDKategorije = (Button)getView().findViewById(R.id.dKategorije);
         final Button dugmeDAutori = (Button)getView().findViewById(R.id.dAutori);
+        final Button dugmeOnline = (Button)getView().findViewById(R.id.dDodajOnline);
 
         //final ArrayList<String> lista = new ArrayList<String>();
         final ArrayAdapter<String> adapter;
@@ -79,7 +81,7 @@ public class ListeFragment extends Fragment {
                 tekstPretraga.setVisibility(View.GONE);
                 ArrayList<String> listaAutora = new ArrayList<>();
 
-                for (int i = 0; i < KategorijeAkt.listaKnjiga.size(); i++) {
+                /*for (int i = 0; i < KategorijeAkt.listaKnjiga.size(); i++) {
                     int brojDjela = 0;
                     Boolean dodajem = true;
 
@@ -89,8 +91,18 @@ public class ListeFragment extends Fragment {
                     if (!listaAutora.contains("Ime: \"" + KategorijeAkt.listaKnjiga.get(i).pisac + "\" Broj djela: " + brojDjela)) {
                         listaAutora.add("Ime: \"" + KategorijeAkt.listaKnjiga.get(i).pisac + "\" Broj djela: " + brojDjela);
                     }
-                }
+                }*/
 
+                for (int i = 0; i < KategorijeAkt.listaAutora.size(); i++) {
+                    int brojDjela = KategorijeAkt.listaAutora.get(i).knjige.size();
+                    /*for (int j = 0; j < KategorijeAkt.listaKnjiga.size(); j++)
+                        for (int k = 0; k < KategorijeAkt.listaKnjiga.get(j).autori.size(); k++)
+                            if (KategorijeAkt.listaKnjiga.get(j).autori.get(k).equals(KategorijeAkt.listaAutora.get(i).imeiPrezime)) brojDjela++;
+                    */
+                    if (!listaAutora.contains("Ime: \"" + KategorijeAkt.listaAutora.get(i).imeiPrezime + "\" Broj djela: " + brojDjela))
+                        listaAutora.add("Ime: \"" + KategorijeAkt.listaAutora.get(i).imeiPrezime + "\" Broj djela: " + brojDjela);
+
+                }
                 ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, listaAutora);
                 listaKategorija.setAdapter(adapter3);
             }
@@ -138,6 +150,15 @@ public class ListeFragment extends Fragment {
             }
         });
 
+
+        dugmeOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), FragmentOnlineAkt.class);
+                i.putExtra("lista", KategorijeAkt.lista);
+                startActivity(i);
+            }
+        });
 
         listaKategorija.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

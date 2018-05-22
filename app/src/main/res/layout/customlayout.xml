@@ -19,7 +19,7 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
-        android:textSize="24sp"
+        android:textSize="21sp"
         android:id="@+id/eNaziv"
         android:layout_width="250dp"
         android:layout_height="30sp"
@@ -33,10 +33,10 @@
     <TextView
         android:id="@+id/eAutor"
         android:layout_width="250sp"
-        android:layout_height="30sp"
+        android:layout_height="50sp"
         android:layout_alignBottom="@+id/eNaslovna"
         android:layout_alignLeft="@+id/eNaziv"
         android:layout_alignStart="@+id/eNaziv"
         android:text="TextView"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 </RelativeLayout>

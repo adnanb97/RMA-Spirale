@@ -94,7 +94,32 @@ public class DodavanjeKnjigeFragment extends Fragment {
 
                 try {
                     kategorija = spinnerPrikaz.getSelectedItem().toString();
-                    KategorijeAkt.listaKnjiga.add(new Knjiga(pisac, naziv, kategorija, bitmap));
+                    int idxAutora = -1;
+                    for (int i = 0; i < KategorijeAkt.listaAutora.size(); i++) {
+                        if (KategorijeAkt.listaAutora.get(i).imeiPrezime.equals(pisac)) {
+                            idxAutora = i;
+                            break;
+                        }
+                    }
+                    Knjiga x = new Knjiga();
+                    x.naziv = naziv;
+                    x.id = naziv;
+                    x.kategorija = kategorija;
+                    x.autori = new ArrayList<Autor>();
+                    //if (!KategorijeAkt.listaKnjiga.contains(x))
+                        //KategorijeAkt.listaKnjiga.add(x);
+                    if (idxAutora == -1) {
+                        KategorijeAkt.listaAutora.add(new Autor(pisac, naziv));
+
+                        x.autori.add(new Autor(pisac, naziv));
+                    } else {
+                        KategorijeAkt.listaAutora.get(idxAutora).knjige.add(naziv);
+                        x.autori.add(new Autor(pisac, naziv));
+                    }
+                    x.slikaBmp = bitmap;
+
+                    KategorijeAkt.listaKnjiga.add(x);
+                    //KategorijeAkt.listaKnjiga.add(new Knjiga(pisac, naziv, kategorija, bitmap));
                     Toast.makeText(getActivity(), getString(R.string.Toast_poruka_dodavanje_knjige), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();

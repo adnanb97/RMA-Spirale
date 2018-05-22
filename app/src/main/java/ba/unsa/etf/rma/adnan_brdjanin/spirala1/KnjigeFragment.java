@@ -67,9 +67,14 @@ public class KnjigeFragment extends Fragment {
                 listaKnjigaView.setAdapter(customAdapter);
             } else {
 
-                for (int i = 0; i < KategorijeAkt.listaKnjiga.size(); i++)
-                    if (KategorijeAkt.listaKnjiga.get(i).pisac.equals(nizRijeci[1]))
-                        nova.add(KategorijeAkt.listaKnjiga.get(i));
+                for (int i = 0; i < KategorijeAkt.listaAutora.size(); i++)
+                    if (KategorijeAkt.listaAutora.get(i).imeiPrezime.equals(nizRijeci[1])) {
+                        for (int k = 0; k < KategorijeAkt.listaKnjiga.size(); k++)
+                            for (int j = 0; j < KategorijeAkt.listaAutora.get(i).knjige.size(); j++)
+                                if (KategorijeAkt.listaKnjiga.get(k).id.equals(KategorijeAkt.listaAutora.get(i).knjige.get(j)))
+                                    if (!nova.contains(KategorijeAkt.listaKnjiga.get(k)))
+                                        nova.add(KategorijeAkt.listaKnjiga.get(k));
+                    }
                 listaKnjigaView.setAdapter(customAdapter);
             }
             listaKnjigaView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,12 +121,18 @@ public class KnjigeFragment extends Fragment {
             TextView textView_naziv = (TextView) view.findViewById(R.id.eNaziv);
             TextView textView_autor = (TextView) view.findViewById(R.id.eAutor);
 
+            String fetchAutor = "";
+            if (trazena.autori != null) {
+                for (int x = 0; x < trazena.autori.size(); x++) {
+                    fetchAutor += trazena.autori.get(x).imeiPrezime;
+                    if (x != trazena.autori.size() - 1) fetchAutor += ",";
+                }
 
 
-            imageView.setImageBitmap(trazena.slika);
-            textView_naziv.setText(trazena.nazivDjela);
-            textView_autor.setText(trazena.pisac);
-
+                imageView.setImageBitmap(trazena.slikaBmp);
+                textView_naziv.setText(trazena.naziv);
+                textView_autor.setText(fetchAutor);
+            }
 
             return view;
         }

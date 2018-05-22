@@ -12,5 +12,9 @@
     <string name="Nadji_Sliku">Browse picture</string>
     <string name="Ponisti">Cancel</string>
     <string name="Toast_poruka_dodavanje_knjige">Book successfully added!</string>
-
+    <string name="Servis_pokrenut">Service is running</string>
+    <string name="Greska_u_prikupljanju">Error while collecting data</string>
+    <string name="Odaberite_knjigu">Choose a book</string>
+    <string name="Odaberite_kategoriju">Choose a category</string>
+    <string name="Dodaj_online">Add a book online</string>
 </resources>

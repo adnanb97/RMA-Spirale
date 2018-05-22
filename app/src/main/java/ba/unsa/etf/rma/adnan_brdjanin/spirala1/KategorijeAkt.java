@@ -24,6 +24,7 @@ import static android.app.PendingIntent.getActivity;
 public class KategorijeAkt extends AppCompatActivity {
     public static ArrayList<Knjiga> listaKnjiga = new ArrayList<>();
     public static ArrayList<String> lista = new ArrayList<String>();
+    public static ArrayList<Autor> listaAutora = new ArrayList<>();
     public static Boolean siriL = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

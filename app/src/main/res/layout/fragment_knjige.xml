@@ -21,12 +21,11 @@
     <ListView
         android:id="@+id/listaKnjiga"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
+        android:layout_height="480dp"
         android:layout_marginLeft="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="1dp"
         android:layout_weight="1">
 
     </ListView>
-
 </RelativeLayout>

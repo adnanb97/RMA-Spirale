@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Spirala2-17796</string>
+    <string name="app_name">Spirala3-17796</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -15,5 +15,9 @@
     <string name="Nadji_Sliku">Nadji Sliku</string>
     <string name="Ponisti">Ponisti</string>
     <string name="Toast_poruka_dodavanje_knjige">Knjiga uspjesno dodana!</string>
-
+    <string name="Servis_pokrenut">Servis je pokrenut</string>
+    <string name="Greska_u_prikupljanju">Greska u prikupljanju podataka</string>
+    <string name="Odaberite_knjigu">Odaberite knjigu</string>
+    <string name="Odaberite_kategoriju">Odaberite kategoriju</string>
+    <string name="Dodaj_online">Dodaj knjigu online</string>
 </resources>
