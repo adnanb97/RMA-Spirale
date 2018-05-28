@@ -106,8 +106,10 @@ public class FragmentOnline extends Fragment implements DohvatiKnjige.IDohvatiKn
                             break;
                         }
                     x.kategorija = kategorijaA;
-                    if (!KategorijeAkt.listaKnjiga.contains(x))
+                    if (!KategorijeAkt.listaKnjiga.contains(x)) {
                         KategorijeAkt.listaKnjiga.add(x);
+                        KategorijeAkt.BAZA_PODATAKA.dodajKnjigu(x);
+                    }
 
                     if (x.autori != null)
                     for (int i = 0; i < x.autori.size(); i++) {
@@ -132,6 +134,7 @@ public class FragmentOnline extends Fragment implements DohvatiKnjige.IDohvatiKn
                                 KategorijeAkt.listaAutora.get(indeks).knjige.add(x.id);
                         }
                     }
+
                     //KategorijeAkt.lista.add(kategorijaA);
                     Toast.makeText(getActivity(), getString(R.string.Toast_poruka_dodavanje_knjige), Toast.LENGTH_SHORT).show();
                 }

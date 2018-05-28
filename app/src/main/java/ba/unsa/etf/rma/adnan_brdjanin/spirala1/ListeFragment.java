@@ -2,6 +2,7 @@ package ba.unsa.etf.rma.adnan_brdjanin.spirala1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,6 +48,7 @@ public class ListeFragment extends Fragment {
         final Button dugmeDodajKategoriju = (Button)getView().findViewById(R.id.dDodajKategoriju);
         dugmeDodajKategoriju.setEnabled(false);
 
+
         final EditText tekstPretraga = (EditText)getView().findViewById(R.id.tekstPretraga);
         final Button dugmePretraga = (Button)getView().findViewById(R.id.dPretraga);
         final ListView listaKategorija = (ListView)getView().findViewById(R.id.listaKategorija);
@@ -55,16 +57,21 @@ public class ListeFragment extends Fragment {
         final Button dugmeDAutori = (Button)getView().findViewById(R.id.dAutori);
         final Button dugmeOnline = (Button)getView().findViewById(R.id.dDodajOnline);
 
+        KategorijeAkt.lista = KategorijeAkt.BAZA_PODATAKA.dajSveKategorije();
+        KategorijeAkt.listaAutora = KategorijeAkt.BAZA_PODATAKA.dajSveAutore();
+        KategorijeAkt.listaKnjiga = KategorijeAkt.BAZA_PODATAKA.dajSveKnjige();
         //final ArrayList<String> lista = new ArrayList<String>();
         final ArrayAdapter<String> adapter;
 
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, KategorijeAkt.lista);
         listaKategorija.setAdapter(adapter);
 
+
         dugmeDKategorije.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, KategorijeAkt.lista);
+
                 listaKategorija.setAdapter(adapter2);
 
                 dugmePretraga.setVisibility(View.VISIBLE);
@@ -95,6 +102,8 @@ public class ListeFragment extends Fragment {
 
                 for (int i = 0; i < KategorijeAkt.listaAutora.size(); i++) {
                     int brojDjela = KategorijeAkt.listaAutora.get(i).knjige.size();
+                    ArrayList<Knjiga> knjigeAutora = KategorijeAkt.BAZA_PODATAKA.knjigeAutoraPoImenu(KategorijeAkt.listaAutora.get(i).imeiPrezime);
+                    brojDjela = knjigeAutora.size();
                     /*for (int j = 0; j < KategorijeAkt.listaKnjiga.size(); j++)
                         for (int k = 0; k < KategorijeAkt.listaKnjiga.get(j).autori.size(); k++)
                             if (KategorijeAkt.listaKnjiga.get(j).autori.get(k).equals(KategorijeAkt.listaAutora.get(i).imeiPrezime)) brojDjela++;
@@ -127,6 +136,8 @@ public class ListeFragment extends Fragment {
 
                 if (uneseniTekst != null && !uneseniTekst.isEmpty()) {
                     KategorijeAkt.lista.add(0, uneseniTekst);
+
+                    KategorijeAkt.BAZA_PODATAKA.dodajKategoriju(uneseniTekst);
                     adapter.add(uneseniTekst);
                     adapter.notifyDataSetChanged();
                 }
@@ -164,6 +175,7 @@ public class ListeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String s = listaKategorija.getItemAtPosition(position).toString();
+
                 if (KategorijeAkt.siriL) {
                     /*FragmentManager fm = getFragmentManager();
                     Bundle param = new Bundle();

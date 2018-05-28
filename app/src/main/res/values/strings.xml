@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Spirala3-17796</string>
+    <string name="app_name">Spirala4-17796</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -20,4 +20,8 @@
     <string name="Odaberite_knjigu">Odaberite knjigu</string>
     <string name="Odaberite_kategoriju">Odaberite kategoriju</string>
     <string name="Dodaj_online">Dodaj knjigu online</string>
+    <string name="Posalji_Preporuku">Posalji preporuku</string>
+    <string name="Odobri_permisiju">Dok ne odobrite pristup kontaktima, ne mozemo prikazati njihove mailove!</string>
+    <string name="Nijedan_nije_instaliran">Nijedan email klijent nije instaliran</string>
+    <string name="Preporuci">Preporuci</string>
 </resources>

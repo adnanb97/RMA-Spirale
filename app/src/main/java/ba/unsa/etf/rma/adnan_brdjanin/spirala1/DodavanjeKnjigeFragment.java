@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
@@ -116,8 +117,12 @@ public class DodavanjeKnjigeFragment extends Fragment {
                         KategorijeAkt.listaAutora.get(idxAutora).knjige.add(naziv);
                         x.autori.add(new Autor(pisac, naziv));
                     }
-                    x.slikaBmp = bitmap;
+                    //x.slikaBmp = bitmap;
+                    x.slika = new URL("http://gammasphere.net/web/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg");
+                    x.opis = x.datumObjavljivanja = "";
 
+                    long idKnjige = KategorijeAkt.BAZA_PODATAKA.dodajKnjigu(x);
+                    x.id = String.valueOf(idKnjige);
                     KategorijeAkt.listaKnjiga.add(x);
                     //KategorijeAkt.listaKnjiga.add(new Knjiga(pisac, naziv, kategorija, bitmap));
                     Toast.makeText(getActivity(), getString(R.string.Toast_poruka_dodavanje_knjige), Toast.LENGTH_SHORT).show();

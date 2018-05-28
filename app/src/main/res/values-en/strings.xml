@@ -17,4 +17,8 @@
     <string name="Odaberite_knjigu">Choose a book</string>
     <string name="Odaberite_kategoriju">Choose a category</string>
     <string name="Dodaj_online">Add a book online</string>
+    <string name="Posalji_Preporuku">Recommend</string>
+    <string name="Odobri_permisiju">Until you allow contact access, we cannot display their email address!</string>
+    <string name="Nijedan_nije_instaliran">No email clients installed on device</string>
+    <string name="Preporuci">Recommend</string>
 </resources>

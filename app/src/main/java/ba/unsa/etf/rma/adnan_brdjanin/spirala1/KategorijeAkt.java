@@ -1,6 +1,10 @@
 package ba.unsa.etf.rma.adnan_brdjanin.spirala1;
 
 import android.app.FragmentTransaction;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
@@ -13,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+
+import com.facebook.stetho.Stetho;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,10 +33,14 @@ public class KategorijeAkt extends AppCompatActivity {
     public static ArrayList<String> lista = new ArrayList<String>();
     public static ArrayList<Autor> listaAutora = new ArrayList<>();
     public static Boolean siriL = false;
+    public static BazaOpenHelper BAZA_PODATAKA;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_kategorije_akt);
+
+        BAZA_PODATAKA = BazaOpenHelper.getInstance(this);
 
         if (savedInstanceState != null) {
             listaKnjiga = savedInstanceState.getParcelableArrayList("mojaListaPodataka");
